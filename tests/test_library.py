@@ -35,7 +35,16 @@ class TestSprint2(unittest.TestCase):
         lib.borrow_book("B1")
         lib.return_book("B1")
         self.assertEqual(lib.books["B1"]["status"], "Available")
-               
+   
+class TestSprint3(unittest.TestCase):
+
+    def test_generate_report(self):
+        lib = Library()
+        lib.add_book("B1", "Python", "Guido")
+        report = lib.generate_report()
+        self.assertIn("Book ID", report)
+        self.assertIn("B1", report)
+       
 if __name__ == "__main__":
     unittest.main()
 
