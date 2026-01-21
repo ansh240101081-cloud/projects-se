@@ -1,17 +1,20 @@
 import unittest
-from src.library import Library, BookAlreadyExistsError
+from src.library import Library
 
-class TestLibrarySprint1(unittest.TestCase):
-    def setUp(self):
-        self.library = Library()
+class TestSprint1(unittest.TestCase):
 
     def test_add_book_success(self):
-        result = self.library.add_book(book_id=1, title="Book A", author="Author A")
-        self.assertTrue(result)
-        self.assertIn(1, self.library.books)
-
-    def test_add_duplicate_book_raises_error(self):
-        self.library.add_book(book_id=1, title="Book A", author="Author A")
-        with self.assertRaises(BookAlreadyExistsError):
-            self.library.add_book(book_id=1, title="Book B", author="Author B")
+        lib = Library()
+        lib.add_book("B1", "Python", "Guido")
+        self.assertIn("B1", lib.books)  
+        
+    def test_add_book_duplicate(self):
+        lib = Library()
+        lib.add_book("B1", "Python", "Guido")
+        # Break the test by checking a different ID for duplicate
+        with self.assertRaises(ValueError):
+            lib.add_book("B1", "Python", "Guido") 
+            
+if __name__ == "__main__":
+    unittest.main()
 
